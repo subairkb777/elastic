@@ -36,12 +36,12 @@ func easyjson1ed00e60DecodeGithubComOlivereElastic(in *jlexer.Lexer, out *bulkUp
 			continue
 		}
 		switch key {
-		case "_id":
-			out.Id = string(in.String())
 		case "_index":
 			out.Index = string(in.String())
 		case "_type":
 			out.Type = string(in.String())
+		case "_id":
+			out.Id = string(in.String())
 		case "_parent":
 			out.Parent = string(in.String())
 		case "retry_on_conflict":
@@ -74,16 +74,6 @@ func easyjson1ed00e60EncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkU
 	out.RawByte('{')
 	first := true
 	_ = first
-	if in.Id != "" {
-		const prefix string = ",\"_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Id))
-	}
 	if in.Index != "" {
 		const prefix string = ",\"_index\":"
 		if first {
@@ -103,6 +93,16 @@ func easyjson1ed00e60EncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkU
 			out.RawString(prefix)
 		}
 		out.String(string(in.Type))
+	}
+	if in.Id != "" {
+		const prefix string = ",\"_id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.Id))
 	}
 	if in.Parent != "" {
 		const prefix string = ",\"_parent\":"
@@ -227,14 +227,6 @@ func easyjson1ed00e60DecodeGithubComOlivereElastic1(in *jlexer.Lexer, out *bulkU
 				}
 				*out.DocAsUpsert = bool(in.Bool())
 			}
-		case "upsert":
-			if m, ok := out.Upsert.(easyjson.Unmarshaler); ok {
-				m.UnmarshalEasyJSON(in)
-			} else if m, ok := out.Upsert.(json.Unmarshaler); ok {
-				_ = m.UnmarshalJSON(in.Raw())
-			} else {
-				out.Upsert = in.Interface()
-			}
 		case "script":
 			if m, ok := out.Script.(easyjson.Unmarshaler); ok {
 				m.UnmarshalEasyJSON(in)
@@ -252,6 +244,14 @@ func easyjson1ed00e60DecodeGithubComOlivereElastic1(in *jlexer.Lexer, out *bulkU
 					out.ScriptedUpsert = new(bool)
 				}
 				*out.ScriptedUpsert = bool(in.Bool())
+			}
+		case "upsert":
+			if m, ok := out.Upsert.(easyjson.Unmarshaler); ok {
+				m.UnmarshalEasyJSON(in)
+			} else if m, ok := out.Upsert.(json.Unmarshaler); ok {
+				_ = m.UnmarshalJSON(in.Raw())
+			} else {
+				out.Upsert = in.Interface()
 			}
 		default:
 			in.SkipRecursive()
@@ -303,22 +303,6 @@ func easyjson1ed00e60EncodeGithubComOlivereElastic1(out *jwriter.Writer, in bulk
 		}
 		out.Bool(bool(*in.DocAsUpsert))
 	}
-	if in.Upsert != nil {
-		const prefix string = ",\"upsert\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		if m, ok := in.Upsert.(easyjson.Marshaler); ok {
-			m.MarshalEasyJSON(out)
-		} else if m, ok := in.Upsert.(json.Marshaler); ok {
-			out.Raw(m.MarshalJSON())
-		} else {
-			out.Raw(json.Marshal(in.Upsert))
-		}
-	}
 	if in.Script != nil {
 		const prefix string = ",\"script\":"
 		if first {
@@ -344,6 +328,22 @@ func easyjson1ed00e60EncodeGithubComOlivereElastic1(out *jwriter.Writer, in bulk
 			out.RawString(prefix)
 		}
 		out.Bool(bool(*in.ScriptedUpsert))
+	}
+	if in.Upsert != nil {
+		const prefix string = ",\"upsert\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		if m, ok := in.Upsert.(easyjson.Marshaler); ok {
+			m.MarshalEasyJSON(out)
+		} else if m, ok := in.Upsert.(json.Marshaler); ok {
+			out.Raw(m.MarshalJSON())
+		} else {
+			out.Raw(json.Marshal(in.Upsert))
+		}
 	}
 	out.RawByte('}')
 }

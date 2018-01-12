@@ -41,14 +41,14 @@ type bulkIndexRequestCommand map[string]bulkIndexRequestCommandOp
 
 //easyjson:json
 type bulkIndexRequestCommandOp struct {
-	Id     string `json:"_id,omitempty"`
 	Index  string `json:"_index,omitempty"`
-	TTL    string `json:"_ttl,omitempty"`
+	Id     string `json:"_id,omitempty"`
 	Type   string `json:"_type,omitempty"`
 	Parent string `json:"_parent,omitempty"`
 	// RetryOnConflict is "_retry_on_conflict" for 6.0 and "retry_on_conflict" for 6.1+.
 	RetryOnConflict *int   `json:"retry_on_conflict,omitempty"`
 	Routing         string `json:"_routing,omitempty"`
+	TTL             string `json:"_ttl,omitempty"`
 	Version         int64  `json:"_version,omitempty"`
 	VersionType     string `json:"_version_type,omitempty"`
 	Pipeline        string `json:"pipeline,omitempty"`

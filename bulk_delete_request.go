@@ -38,11 +38,11 @@ type bulkDeleteRequestCommand map[string]bulkDeleteRequestCommandOp
 
 //easyjson:json
 type bulkDeleteRequestCommandOp struct {
-	Id          string `json:"_id,omitempty"`
 	Index       string `json:"_index,omitempty"`
+	Type        string `json:"_type,omitempty"`
+	Id          string `json:"_id,omitempty"`
 	Parent      string `json:"_parent,omitempty"`
 	Routing     string `json:"_routing,omitempty"`
-	Type        string `json:"_type,omitempty"`
 	Version     int64  `json:"_version,omitempty"`
 	VersionType string `json:"_version_type,omitempty"`
 }

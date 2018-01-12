@@ -21,7 +21,7 @@ func TestBulkUpdateRequestSerialization(t *testing.T) {
 				Counter: 42,
 			}),
 			Expected: []string{
-				`{"update":{"_id":"1","_index":"index1","_type":"doc"}}`,
+				`{"update":{"_index":"index1","_type":"doc","_id":"1"}}`,
 				`{"doc":{"counter":42}}`,
 			},
 		},
@@ -36,7 +36,7 @@ func TestBulkUpdateRequestSerialization(t *testing.T) {
 					Counter: 42,
 				}),
 			Expected: []string{
-				`{"update":{"_id":"1","_index":"index1","_type":"doc","retry_on_conflict":3}}`,
+				`{"update":{"_index":"index1","_type":"doc","_id":"1","retry_on_conflict":3}}`,
 				`{"doc":{"counter":42},"doc_as_upsert":true}`,
 			},
 		},
@@ -51,8 +51,8 @@ func TestBulkUpdateRequestSerialization(t *testing.T) {
 					Counter: 42,
 				}),
 			Expected: []string{
-				`{"update":{"_id":"1","_index":"index1","_type":"doc","retry_on_conflict":3}}`,
-				`{"upsert":{"counter":42},"script":{"lang":"javascript","params":{"param1":42},"source":"ctx._source.retweets += param1"}}`,
+				`{"update":{"_index":"index1","_type":"doc","_id":"1","retry_on_conflict":3}}`,
+				`{"script":{"lang":"javascript","params":{"param1":42},"source":"ctx._source.retweets += param1"},"upsert":{"counter":42}}`,
 			},
 		},
 		// #3
@@ -63,7 +63,7 @@ func TestBulkUpdateRequestSerialization(t *testing.T) {
 				Counter: 42,
 			}),
 			Expected: []string{
-				`{"update":{"_id":"1","_index":"index1","_type":"doc"}}`,
+				`{"update":{"_index":"index1","_type":"doc","_id":"1"}}`,
 				`{"detect_noop":true,"doc":{"counter":42}}`,
 			},
 		},
@@ -79,8 +79,8 @@ func TestBulkUpdateRequestSerialization(t *testing.T) {
 					Counter: 42,
 				}),
 			Expected: []string{
-				`{"update":{"_id":"1","_index":"index1","_type":"doc","retry_on_conflict":3}}`,
-				`{"upsert":{"counter":42},"script":{"lang":"javascript","params":{"param1":42},"source":"ctx._source.retweets += param1"},"scripted_upsert":true}`,
+				`{"update":{"_index":"index1","_type":"doc","_id":"1","retry_on_conflict":3}}`,
+				`{"script":{"lang":"javascript","params":{"param1":42},"source":"ctx._source.retweets += param1"},"scripted_upsert":true,"upsert":{"counter":42}}`,
 			},
 		},
 	}

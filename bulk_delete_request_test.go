@@ -17,21 +17,21 @@ func TestBulkDeleteRequestSerialization(t *testing.T) {
 		{
 			Request: NewBulkDeleteRequest().Index("index1").Type("doc").Id("1"),
 			Expected: []string{
-				`{"delete":{"_id":"1","_index":"index1","_type":"doc"}}`,
+				`{"delete":{"_index":"index1","_type":"doc","_id":"1"}}`,
 			},
 		},
 		// #1
 		{
 			Request: NewBulkDeleteRequest().Index("index1").Type("doc").Id("1").Parent("2"),
 			Expected: []string{
-				`{"delete":{"_id":"1","_index":"index1","_parent":"2","_type":"doc"}}`,
+				`{"delete":{"_index":"index1","_type":"doc","_id":"1","_parent":"2"}}`,
 			},
 		},
 		// #2
 		{
 			Request: NewBulkDeleteRequest().Index("index1").Type("doc").Id("1").Routing("3"),
 			Expected: []string{
-				`{"delete":{"_id":"1","_index":"index1","_routing":"3","_type":"doc"}}`,
+				`{"delete":{"_index":"index1","_type":"doc","_id":"1","_routing":"3"}}`,
 			},
 		},
 	}

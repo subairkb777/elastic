@@ -36,16 +36,16 @@ func easyjson8092efb6DecodeGithubComOlivereElastic(in *jlexer.Lexer, out *bulkDe
 			continue
 		}
 		switch key {
-		case "_id":
-			out.Id = string(in.String())
 		case "_index":
 			out.Index = string(in.String())
+		case "_type":
+			out.Type = string(in.String())
+		case "_id":
+			out.Id = string(in.String())
 		case "_parent":
 			out.Parent = string(in.String())
 		case "_routing":
 			out.Routing = string(in.String())
-		case "_type":
-			out.Type = string(in.String())
 		case "_version":
 			out.Version = int64(in.Int64())
 		case "_version_type":
@@ -64,16 +64,6 @@ func easyjson8092efb6EncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkD
 	out.RawByte('{')
 	first := true
 	_ = first
-	if in.Id != "" {
-		const prefix string = ",\"_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Id))
-	}
 	if in.Index != "" {
 		const prefix string = ",\"_index\":"
 		if first {
@@ -83,6 +73,26 @@ func easyjson8092efb6EncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkD
 			out.RawString(prefix)
 		}
 		out.String(string(in.Index))
+	}
+	if in.Type != "" {
+		const prefix string = ",\"_type\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.Type))
+	}
+	if in.Id != "" {
+		const prefix string = ",\"_id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.Id))
 	}
 	if in.Parent != "" {
 		const prefix string = ",\"_parent\":"
@@ -103,16 +113,6 @@ func easyjson8092efb6EncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkD
 			out.RawString(prefix)
 		}
 		out.String(string(in.Routing))
-	}
-	if in.Type != "" {
-		const prefix string = ",\"_type\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Type))
 	}
 	if in.Version != 0 {
 		const prefix string = ",\"_version\":"

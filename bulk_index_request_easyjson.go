@@ -36,12 +36,10 @@ func easyjson9de0fcbfDecodeGithubComOlivereElastic(in *jlexer.Lexer, out *bulkIn
 			continue
 		}
 		switch key {
-		case "_id":
-			out.Id = string(in.String())
 		case "_index":
 			out.Index = string(in.String())
-		case "_ttl":
-			out.TTL = string(in.String())
+		case "_id":
+			out.Id = string(in.String())
 		case "_type":
 			out.Type = string(in.String())
 		case "_parent":
@@ -58,6 +56,8 @@ func easyjson9de0fcbfDecodeGithubComOlivereElastic(in *jlexer.Lexer, out *bulkIn
 			}
 		case "_routing":
 			out.Routing = string(in.String())
+		case "_ttl":
+			out.TTL = string(in.String())
 		case "_version":
 			out.Version = int64(in.Int64())
 		case "_version_type":
@@ -78,16 +78,6 @@ func easyjson9de0fcbfEncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkI
 	out.RawByte('{')
 	first := true
 	_ = first
-	if in.Id != "" {
-		const prefix string = ",\"_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Id))
-	}
 	if in.Index != "" {
 		const prefix string = ",\"_index\":"
 		if first {
@@ -98,15 +88,15 @@ func easyjson9de0fcbfEncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkI
 		}
 		out.String(string(in.Index))
 	}
-	if in.TTL != "" {
-		const prefix string = ",\"_ttl\":"
+	if in.Id != "" {
+		const prefix string = ",\"_id\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
 		} else {
 			out.RawString(prefix)
 		}
-		out.String(string(in.TTL))
+		out.String(string(in.Id))
 	}
 	if in.Type != "" {
 		const prefix string = ",\"_type\":"
@@ -147,6 +137,16 @@ func easyjson9de0fcbfEncodeGithubComOlivereElastic(out *jwriter.Writer, in bulkI
 			out.RawString(prefix)
 		}
 		out.String(string(in.Routing))
+	}
+	if in.TTL != "" {
+		const prefix string = ",\"_ttl\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.TTL))
 	}
 	if in.Version != 0 {
 		const prefix string = ",\"_version\":"

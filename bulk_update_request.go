@@ -44,9 +44,9 @@ type bulkUpdateRequestCommand map[string]bulkUpdateRequestCommandOp
 
 //easyjson:json
 type bulkUpdateRequestCommandOp struct {
-	Id     string `json:"_id,omitempty"`
 	Index  string `json:"_index,omitempty"`
 	Type   string `json:"_type,omitempty"`
+	Id     string `json:"_id,omitempty"`
 	Parent string `json:"_parent,omitempty"`
 	// RetryOnConflict is "_retry_on_conflict" for 6.0 and "retry_on_conflict" for 6.1+.
 	RetryOnConflict *int   `json:"retry_on_conflict,omitempty"`
@@ -60,9 +60,9 @@ type bulkUpdateRequestCommandData struct {
 	DetectNoop     *bool       `json:"detect_noop,omitempty"`
 	Doc            interface{} `json:"doc,omitempty"`
 	DocAsUpsert    *bool       `json:"doc_as_upsert,omitempty"`
-	Upsert         interface{} `json:"upsert,omitempty"`
 	Script         interface{} `json:"script,omitempty"`
 	ScriptedUpsert *bool       `json:"scripted_upsert,omitempty"`
+	Upsert         interface{} `json:"upsert,omitempty"`
 }
 
 // NewBulkUpdateRequest returns a new BulkUpdateRequest.
