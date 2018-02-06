@@ -31,6 +31,19 @@ func NewTermsQuery(name string, values ...interface{}) TermsQuery {
 	return t
 }
 
+// NewTermsQuery creates and initializes a new TermsQuery with slice passed in function call.
+func NewTermsQueryWithSlice(name string, values []string) *TermsQuery {
+	 q := &TermsQuery{
+			 name:   name,
+			 values: make([]interface{},0),
+	 }
+	 for _,v := range values{
+			 q.values = append(q.values,v)
+	 }
+
+	 return q
+}
+
 func (q TermsQuery) MinimumShouldMatch(minimumShouldMatch string) TermsQuery {
 	q.minimumShouldMatch = minimumShouldMatch
 	return q
